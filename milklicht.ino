@@ -1,7 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 
 /*
-MILCHLICHT -  a rechargeable handsfree nightlight for breastfeeding Dewars
+MILCHLICHT -  a rechargeable handsfree nightlight for new parents
 
 Inductively charges when the light is off and the device is in its holster
 Lights fade up gently when picked up
