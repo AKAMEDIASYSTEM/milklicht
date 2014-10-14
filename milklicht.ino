@@ -18,6 +18,8 @@ just for ease of prototype, it has a knob that sets brightness (this could be a 
 Arduino Pro Mini
 Potentiometer OR membrane/softpot
 OR accelerometer, that's to be added later
+
+2014/10/13, running this on an Arduino Fio (but NOTE, must program firmware as an Arduino Pro Mini, At168 at 8MHz 3.3v)
 */
 
 #define neo 2
