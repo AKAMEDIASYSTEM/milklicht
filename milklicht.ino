@@ -24,7 +24,7 @@ OR accelerometer, that's to be added later
 #define chg 3
 float limit = 10000;
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, neo, NEO_GRB + NEO_KHZ800);
- // digital 3 is charge state; or, I will blow out this pin.
+// digital 3 is charge state; or, I will blow out this pin.
 //int accel = A0; // accelerometer
 //int tilt; // keep track of tilt
 float counter = 0;
@@ -36,7 +36,7 @@ int liftCountMax = 1000;
 
 void setup() {
   pinMode(chg, INPUT);
-//  pinMode(accel, INPUT);
+  //  pinMode(accel, INPUT);
   // put your setup code here, to run once:
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
@@ -51,11 +51,12 @@ void loop() {
 
   if (digitalRead(chg)) { // if we're in the dock
     for (int i = 0; i < strip.numPixels(); i++) {
-//      if(i/strip.numPixels() < counter/limit){ // slowly fill up the ring with red
-      if(i == int(counter/limit*strip.numPixels())){ // one red pixel that moves like a clock
-      strip.setPixelColor(i, strip.Color(255, 0, 0));
-    } else {
-     strip.setPixelColor(i, strip.Color(0,0,0)); 
+      //if(i/strip.numPixels() < counter/limit) { // slowly fill up the ring with red
+      if (i == int(counter / limit * strip.numPixels())) { // one red pixel that moves like a clock
+        strip.setPixelColor(i, strip.Color(255, 0, 0));
+      } else {
+        strip.setPixelColor(i, strip.Color(0, 0, 0));
+      }
     }
     instantLifted = true; // get ready for when next undocked
   } else { // if we're in use
@@ -66,19 +67,19 @@ void loop() {
     for (int i = 0; i < strip.numPixels(); i++) {
       strip.setPixelColor(i, strip.Color(255, 0, 0));
     }
-    
+
     if (justLifted) { // we're in the first [liftCountMax] loops while undocked
-//      tilt  = analogRead(accel); // read the y-axis of accelerometer
-//      strip.setBrightness(tilt); // set brightness from tilt if we're in the first three seconds; we should also be low-pas filtering tilt
-      strip.setBrightness(int(map(liftCount, 0, liftCountMax, 0, 255))); 
+      //      tilt  = analogRead(accel); // read the y-axis of accelerometer
+      //      strip.setBrightness(tilt); // set brightness from tilt if we're in the first three seconds; we should also be low-pas filtering tilt
+      strip.setBrightness(int(map(liftCount, 0, liftCountMax, 0, 255)));
     }
-    if(liftCount == liftCountMax){
+    if (liftCount == liftCountMax) {
       justLifted = false;
       liftCount = 0;
     }
-    
+
     liftCount++;
-    instantLifted = false; // so 
+    instantLifted = false; // so
   }
 
   strip.show();
