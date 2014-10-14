@@ -51,15 +51,12 @@ void loop() {
 
   if (digitalRead(chg)) { // if we're in the dock
     for (int i = 0; i < strip.numPixels(); i++) {
-      // dormant breathing pattern
-      strip.setPixelColor(i * 4, strip.Color(0, 0, 0));
-      strip.setPixelColor(i * 4 + 1, strip.Color(32, 0, 0));
-      strip.setPixelColor(i * 4 - 1, strip.Color(32, 0, 0));
-      strip.setPixelColor(i * 4 + 2, strip.Color(16, 0, 0));
-      strip.setPixelColor(i * 4 - 2, strip.Color(16, 0, 0));
+//      if(i/strip.numPixels() < counter/limit){ // slowly fill up the ring with red
+      if(i == int(counter/limit*strip.numPixels())){ // one red pixel that moves like a clock
+      strip.setPixelColor(i, strip.Color(255, 0, 0));
+    } else {
+     strip.setPixelColor(i, strip.Color(0,0,0)); 
     }
-    int pb = max(64, floor((counter / limit) * 128));
-    fadeDown ? strip.setBrightness(pb) : strip.setBrightness(128 - pb);
     instantLifted = true; // get ready for when next undocked
   } else { // if we're in use
     if (instantLifted) { //if this is the first loop in which the light is undocked
